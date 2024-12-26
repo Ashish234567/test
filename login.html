@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE DESIRE CAMPUS ACADEMY</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Basic reset */
+        html, body {
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #000; /* Dark space background */
+            font-family: 'Poppins', sans-serif;
+            position: relative;
+        }
+
+        /* Star container: position all stars randomly */
+        .starfield {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        /* Each star */
+        .star {
+            position: absolute;
+            background-color: #fff;
+            border-radius: 50%;
+            opacity: 0;
+            animation: twinkle 2s infinite, drift 30s linear infinite;
+        }
+
+        /* Twinkling effect: Random opacity changes */
+        @keyframes twinkle {
+            0%, 100% {
+                opacity: 0.4;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+        }
+
+        /* Drifting effect: Simulate movement of stars */
+        @keyframes drift {
+            0% {
+                transform: translate3d(0, 0, 0);
+            }
+            100% {
+                transform: translate3d(calc(100vw + 50px), calc(100vh + 50px), 0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Starfield container -->
+    <div class="starfield" id="starfield"></div>
+
+    <script>
+        // Create a random number of stars and scatter them on the screen
+        const starfield = document.getElementById("starfield");
+        const numStars = 500; // Increased number of stars to 500
+
+        function createStar() {
+            const star = document.createElement("div");
+            star.classList.add("star");
+
+            // Randomly position the star
+            const size = Math.random() * 2 + 1; // Size between 1 and 3px
+            const x = Math.random() * 100 + "vw"; // Random X position (viewport width)
+            const y = Math.random() * 100 + "vh"; // Random Y position (viewport height)
+
+            star.style.width = `${size}px`;
+            star.style.height = `${size}px`;
+            star.style.left = x;
+            star.style.top = y;
+
+            // Random delay for twinkle and drift
+            star.style.animationDelay = Math.random() * 3 + "s"; // Random delay for animations
+            star.style.animationDuration = (Math.random() * 2 + 5) + "s"; // Random speed for drift
+
+            // Append to the starfield
+            starfield.appendChild(star);
+        }
+
+        // Generate stars
+        for (let i = 0; i < numStars; i++) {
+            createStar();
+        }
+    </script>
+</body>
+</html>
